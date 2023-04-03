@@ -2,7 +2,7 @@ package org.capgemini.proyecto2.controller;
 
 import java.util.List;
 
-import org.capgemini.proyecto2.model.User;
+import org.capgemini.proyecto2.model.dto.UserDto;
 import org.capgemini.proyecto2.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +26,9 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping
-	public List<User> getAllUsers() {
+	public List<UserDto> getAllUsers() {
 		logger.info("*** Devolviendo el listado de usuarios ***");
-		return userService.findAll();
+		return UserDto.toDto(userService.findAll());
 	}
 
 }
