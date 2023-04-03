@@ -8,18 +8,12 @@ import java.util.stream.Collectors;
 import org.capgemini.proyecto2.model.Event;
 import org.springframework.beans.BeanUtils;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
 public class EventDto implements Serializable {
 
 	/**
 	 * Default serial version
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String shortDescription;
