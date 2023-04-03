@@ -2,6 +2,8 @@ package org.capgemini.proyecto2.model.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.capgemini.proyecto2.model.Event;
 import org.springframework.beans.BeanUtils;
@@ -45,12 +47,20 @@ public class EventDto implements Serializable {
 		return eventDto;
 	}
 	
+	public static List<EventDto> toDto(List<Event> events) {
+		return events.stream().map(e -> toDto(e)).collect(Collectors.toList());
+	}
+	
 	public static Event toDao(EventDto eventDto) {
 		Event event = new Event();
 		
 		BeanUtils.copyProperties(eventDto, event);
 		
 		return event;
+	}
+	
+	public static List<Event> toDao(List<EventDto> eventsDto) {
+		return eventsDto.stream().map(e -> toDao(e)).collect(Collectors.toList());
 	}
 	
 	public Long getId() {
