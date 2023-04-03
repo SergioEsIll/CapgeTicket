@@ -2,7 +2,7 @@ package org.capgemini.proyecto2.controller;
 
 import java.util.List;
 
-import org.capgemini.proyecto2.model.Event;
+import org.capgemini.proyecto2.model.dto.EventDto;
 import org.capgemini.proyecto2.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/events")
 public class EventController {
 
+	@SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory.getLogger(EventController.class);
 
 	@Autowired
 	EventService eventService;
 
 	@GetMapping
-	public List<Event> listEvents() {
-		return eventService.findAll();
+	public List<EventDto> listEvents() {
+		return EventDto.toDto(eventService.findAll());
 	}
 
 }
