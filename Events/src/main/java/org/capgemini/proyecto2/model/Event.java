@@ -1,6 +1,6 @@
 package org.capgemini.proyecto2.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +15,7 @@ public class Event {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	@NotEmpty(message = "El nombre no puede estar vacío")
 	@Size(min = 1, max = 255)
@@ -57,7 +57,7 @@ public class Event {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Event(Long id, @NotEmpty(message = "El nombre no puede estar vacío") @Size(min = 1, max = 255) String name,
+	public Event(int id, @NotEmpty(message = "El nombre no puede estar vacío") @Size(min = 1, max = 255) String name,
 			@NotEmpty(message = "La descripción corta no puede estar vacía") @Size(min = 1, max = 255) String shortDescription,
 			@NotEmpty(message = "La descripción extendida no puede estar vacía") @Size(min = 1, max = 255) String extendedDescription,
 			@NotEmpty(message = "La fecha del evento es obligatoria") Date dateEvent,
@@ -112,11 +112,11 @@ public class Event {
 		this.capacityRoom = capacityRoom;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
