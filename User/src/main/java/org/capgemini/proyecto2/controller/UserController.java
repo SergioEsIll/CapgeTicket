@@ -2,6 +2,7 @@ package org.capgemini.proyecto2.controller;
 
 import java.util.List;
 
+import org.capgemini.proyecto2.model.User;
 import org.capgemini.proyecto2.model.dto.UserDto;
 import org.capgemini.proyecto2.service.UserService;
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +32,12 @@ public class UserController {
 	public List<UserDto> getAllUsers() {
 		logger.info("*** Devolviendo el listado de usuarios ***");
 		return UserDto.toDto(userService.findAll());
+	}
+	
+	@PostMapping
+	public UserDto addUser(@RequestBody User user) {
+		logger.info("*** Creando el usuario " + user.getId() + " ***");
+		return UserDto.toDto(userService.save(user));
 	}
 
 }
