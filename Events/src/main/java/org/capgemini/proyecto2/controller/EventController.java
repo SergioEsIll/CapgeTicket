@@ -31,7 +31,7 @@ public class EventController {
 	
 	@PostMapping
 	public EventDto addEvent(@RequestBody Event event) {
-		logger.info("*** Creando el usuario " + event.getId() + " ***");
+		logger.info("*** Creando el evento " + event.getId() + " ***");
 		return EventDto.toDto(eventService.save(event));
 	}
 
