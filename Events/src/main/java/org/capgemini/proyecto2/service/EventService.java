@@ -12,5 +12,12 @@ public interface EventService {
 	 * @return listado de eventos
 	 */
 	public List<Event> findAll();
+	
+	/**
+	 * Guarda un evento en bbdd
+	 * @param event
+	 * @return
+	 */
+	public Event save(Event event);
 
 }
