@@ -13,7 +13,7 @@ import io.swagger.v3.oas.models.info.License;
 public class OpenApiConfig {
 
 	@Bean
-	public OpenAPI EventOpenAPI() {
+	public OpenAPI PurchaseOpenAPI() {
 		return new OpenAPI()
 				.info(new Info().title("Purchase API").description("Documentación de Purchase API").version("v1.0")
 						.contact(new Contact().name("Grupo 4"))
