@@ -10,13 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Controller
-=======
 @RestController
->>>>>>> cab58daa85f394a8a1c0344fc3dcccdc482fe709
 @RequestMapping("/api/v1/payments")
 @Tag(name = "payments", description = "Payments API")
 public class PaymentController {
@@ -26,13 +22,13 @@ public class PaymentController {
 
 	@PostMapping
 	public ResponseEntity<PaymentResponse> payTicket(@RequestBody Card card) {
-		
+
 		PaymentResponse result = paymentService.payTicket(card);
-		
-		if(result == null) {
-			return ResponseEntity.notFound().build();			
+
+		if (result == null) {
+			return ResponseEntity.notFound().build();
 		}
-		
+
 		return ResponseEntity.ok(result);
 	}
 
