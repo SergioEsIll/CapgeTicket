@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -28,12 +33,22 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Operation(summary = "Devuelve el listado usuarios", description = "Muestra el listado completo de usuarios", tags = {
+			"user" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Listado de usuarios mostrado", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
+			@ApiResponse(responseCode = "400", description = "Listado de usuarios no encontrado", content = @Content), })
 	@GetMapping
 	public List<UserDto> getAllUsers() {
 		logger.info("*** Devolviendo el listado de usuarios ***");
 		return UserDto.toDto(userService.findAll());
 	}
-	
+
+	@Operation(summary = "Añadir nuevo usuario", description = "Añadir nuevo usuario")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Usuario creado correctamente"),
+			@ApiResponse(responseCode = "400", description = "Entrada no válida"),
+			@ApiResponse(responseCode = "409", description = "El usuario ya existe") })
 	@PostMapping
 	public UserDto addUser(@RequestBody User user) {
 		logger.info("*** Creando el usuario " + user.getId() + " ***");
