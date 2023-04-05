@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -25,8 +26,9 @@ public class PaymentController {
 
 	@Autowired
 	TicketService ticketService;
-
+	
 	@PostMapping
+	@CircuitBreaker(name = "purchaseCB", fallbackMethod = "fallbackPayTicket")
 	public ResponseEntity<PaymentResponse> payTicket(@RequestBody Card card) {
 
 		PaymentResponse result = paymentService.payTicket(card);
@@ -58,9 +60,14 @@ public class PaymentController {
 			return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		default:
-			return ResponseEntity.ok(result);
+			return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
+	
+	public ResponseEntity<?> fallbackPayTicket(@RequestBody Card card, RuntimeException e){
+    	System.out.println("INFO: FallbackpayTickets");
+    	return new ResponseEntity<>("Plataforma de pago no disponible, vuelva mas tarde", HttpStatus.OK); 
+    }
 
 }
