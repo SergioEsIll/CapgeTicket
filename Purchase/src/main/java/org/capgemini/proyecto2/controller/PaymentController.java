@@ -5,14 +5,18 @@ import org.capgemini.proyecto2.response.PaymentResponse;
 import org.capgemini.proyecto2.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+<<<<<<< HEAD
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Controller
+=======
+@RestController
+>>>>>>> cab58daa85f394a8a1c0344fc3dcccdc482fe709
 @RequestMapping("/api/v1/payments")
 @Tag(name = "payments", description = "Payments API")
 public class PaymentController {
