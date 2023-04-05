@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/v1/events")
-@Tag(name = "events", description = "Events API")
+@Tag(name = "event", description = "Events API")
 public class EventController {
 
 	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
