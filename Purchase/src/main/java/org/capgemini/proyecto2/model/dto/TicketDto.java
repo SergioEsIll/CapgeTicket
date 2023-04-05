@@ -1,6 +1,8 @@
 package org.capgemini.proyecto2.model.dto;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.capgemini.proyecto2.model.Ticket;
 import org.springframework.beans.BeanUtils;
@@ -30,6 +32,10 @@ public class TicketDto implements Serializable {
 		TicketDto ticketDto = new TicketDto();
 		BeanUtils.copyProperties(ticket, ticketDto);
 		return ticketDto;
+	}
+
+	public static List<TicketDto> toDto(List<Ticket> tickets) {
+		return tickets.stream().map(e -> toDto(e)).collect(Collectors.toList());
 	}
 
 	public int getId() {
