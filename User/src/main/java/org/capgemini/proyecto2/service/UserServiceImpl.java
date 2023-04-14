@@ -1,6 +1,7 @@
 package org.capgemini.proyecto2.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.capgemini.proyecto2.model.User;
 import org.capgemini.proyecto2.repository.UserRepository;
@@ -21,6 +22,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public User update(User user) {
+		if(userRepository.existsById(user.getId())) {
+				return userRepository.save(user);
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteById(int id) {
+		if(userRepository.existsById(id)) {
+			userRepository.deleteById(id);;
+		}
+	}
+
+	@Override
+	public Optional<User> findById(int id) {
+		return userRepository.findById(id);
 	}
 
 }

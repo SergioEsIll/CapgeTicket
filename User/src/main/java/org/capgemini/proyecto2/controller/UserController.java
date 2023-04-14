@@ -1,6 +1,7 @@
 package org.capgemini.proyecto2.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.capgemini.proyecto2.model.User;
 import org.capgemini.proyecto2.model.dto.UserDto;
@@ -9,8 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +31,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Validated
 @RequestMapping("/api/v1/users")
 @Tag(name = "user", description = "Users API")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -53,6 +59,25 @@ public class UserController {
 	public UserDto addUser(@RequestBody User user) {
 		logger.info("*** Creando el usuario " + user.getId() + " ***");
 		return UserDto.toDto(userService.save(user));
+	}
+	
+	@PutMapping
+	public UserDto updateUser(@RequestBody User user) {
+		logger.info("*** Modificando el usuario " + user.getId() + " ***");
+		return UserDto.toDto(userService.update(user));
+	}
+	
+	@DeleteMapping("/{id}")
+	public void deleteUser(@PathVariable int id) {
+		logger.info("*** Borrando el usuario " + id + " ***");
+		userService.deleteById(id);
+		logger.info("*** Uusuario " + id + " Borrado ***");
+	}
+	
+	@GetMapping("/{id}")
+	public Optional<UserDto> getUser(@PathVariable int id) {
+		logger.info("*** Buscando el usuario " + id + " ***");
+		return Optional.ofNullable(UserDto.toDto((userService.findById(id)).get()));
 	}
 
 }
