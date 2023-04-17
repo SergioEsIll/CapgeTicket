@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,14 +66,14 @@ public class EventController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteEvent(@RequestParam int id) {
+	public void deleteEvent(@PathVariable int id) {
 		logger.info("*** Borrando el evento " + id + " ***");
 		eventService.deleteById(id);
 		logger.info("*** Uusuario " + id + " Borrado ***");
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<EventDto> getEvent(@RequestParam int id) {
+	public Optional<EventDto> getEvent(@PathVariable int id) {
 		logger.info("*** Buscando el evento " + id + " ***");
 		return Optional.ofNullable(EventDto.toDto((eventService.findById(id)).get()));
 	}
